@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical-16</title>
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-image: linear-gradient(to right, skyblue, blue);
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    font-size: 45px;
+    margin: 35px auto 25px;
+    text-decoration: underline;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 75px;
+}
+
+.todo-input {
+    outline: none;
+    border: none;
+    font-size: 30px;
+    padding: 10px;
+    width: 27%;
+    margin-bottom: 10px;
+}
+
+.todo-button {
+    outline: none;
+    border: none;
+    font-size: 30px;
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.fa-plus-square {
+    color: blue;
+}
+
+.todo-button:hover {
+    background-color: rgba(170, 237, 241, 0.973);
+}
+
+.todo-button:hover .fa-plus-square {
+    color: white;
+}
+
+.todo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo {
+    font-size: 25px;
+    margin: 10px auto;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-item {
+    flex: 1;
+    padding: 4px;
+}
+
+.todo-list {
+    list-style: none;
+    min-width: 25%;
+}
+
+.check-btn,
+.delete-btn {
+    outline: none;
+    border: none;
+    font-size: 25px;
+    padding: 8px;
+    color: white;
+}
+
+.check-btn {
+    background-color: rgba(27, 155, 27, 0.788);
+}
+
+.delete-btn {
+    background-color: palevioletred;
+}
+
+.fa-check,
+.fa-trash {
+    pointer-events: none;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+    </style>
+</head>
+
+<body>
+    <h1>Fullstack To - Do List</h1>
+    <form>
+        <input type="text" class="todo-input" />
+        <button class="todo-button">
+            <i class="fa fa-plus-square"></i>
+        </button>
+    </form>
+
+    <div class="todo-container">
+        <ul class="todo-list">
+
+        </ul>
+    </div>
+
+    <script>
+        //selectors
+var todoInput = document.querySelector(".todo-input");
+var todoButton = document.querySelector(".todo-button");
+var todoList = document.querySelector(".todo-list");
+
+//event handlers
+todoButton.onclick = create;
+todoList.onclick = checkDelete;
+
+//functions
+function create(e) {
+    e.preventDefault();
+
+    if (todoInput.value == "") {
+        alert('Input Field cannot be remained empty!');
+    } else {
+
+        var newDiv = document.createElement("div");
+        newDiv.classList.add("todo");
+
+        var newLi = document.createElement("li");
+        newLi.classList.add("todo-item");
+        newLi.innerHTML = todoInput.value;
+        newDiv.appendChild(newLi);
+
+        var checkbtn = document.createElement("button");
+        checkbtn.classList.add("check-btn");
+        checkbtn.innerHTML = '<i class="fa fa-check"></i>';
+        newDiv.appendChild(checkbtn);
+
+        var deletebtn = document.createElement("button");
+        deletebtn.classList.add("delete-btn");
+        deletebtn.innerHTML = '<i class="fa fa-trash"></i>';
+        newDiv.appendChild(deletebtn);
+
+        todoList.appendChild(newDiv);
+        todoInput.value = "";
+    }
+
+}
+
+function checkDelete(e) {
+    var item = e.target;
+
+    if (item.classList[0] == "delete-btn") {
+        var parent = item.parentNode;
+        parent.remove();
+    }
+
+    if (item.classList[0] == "check-btn") {
+        var parent = item.parentNode;
+        parent.classList.toggle("completed");
+    }
+
+}
+
+//Function Calls
+create();
+checkDelete();
+    </script>
+</body>
+
+</html>
